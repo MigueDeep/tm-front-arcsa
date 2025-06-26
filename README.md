@@ -38,6 +38,6 @@ cd tm-front-arcsa
 ## 2. Instalación  de dependencias y ejecución
 ```bash
 npm install
-ng serve
+ng serve -o
 
 
