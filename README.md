@@ -33,6 +33,10 @@ Este es el frontend del proyecto **Task Manager**, una aplicación fullstack par
 ```bash
 git clone https://github.com/MigueDeep/tm-front-arcsa.git
 cd tm-front-arcsa
+```
+
+## 2. Instalación  de dependencias y ejecución
+```bash
 npm install
 ng serve
 
