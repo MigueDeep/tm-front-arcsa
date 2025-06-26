@@ -1,0 +1,57 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Mis Tareas</h2>
+    <div class="mb-3 d-flex justify-content-end">
+        <button class="btn btn-outline-secondary" (click)="logout()">Cerrar Sesión</button>
+    </div>
+
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <div class="mb-3">
+            <label for="filter" class="form-label">Filtrar por estado:</label>
+            <select id="filter" class="form-select w-auto d-inline-block" (change)="onFilterChange($event)">
+                <option value="all">Todas</option>
+                <option value="pendiente">Pendientes</option>
+                <option value="completado">Completadas</option>
+            </select>
+
+        </div>
+        <div class="mb-3 d-flex justify-content-end align-items-center">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal"
+                (click)="selectedTask = null">
+                Nueva Tarea
+            </button>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length === 0" class="alert alert-info">
+        No tienes tareas registradas.
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length > 0" class="list-group mt-3">
+        <div *ngFor="let task of tasks | taskStatus:taskStatusFilter"
+            class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <span class="badge bg-{{ task.status === 'completado' ? 'success' : 'warning' }}">
+                    {{ task.status }}
+                </span>
+                <h5 class="mb-1 ">{{ task.title }}</h5>
+
+
+                <p class="mb-0">{{ task.description }}</p>
+
+            </div>
+            <div>
+                <button class="btn btn-sm btn-outline-danger me-2" (click)="deleteTask(task.id)">Eliminar</button>
+                <button class="btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#taskModal"
+                    (click)="selectedTask = task">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-task-form-modal [task]="selectedTask" (onSave)="handleSave($event)"></app-task-form-modal>
